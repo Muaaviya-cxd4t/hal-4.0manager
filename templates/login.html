@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAL Organizer Login</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f1f5f9;
+        color: #0f172a;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 420px;
+        background: #ffffff;
+        padding: 36px 32px;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 28px;
+        color: #0f172a;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        text-align: left;
+      }
+
+      label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      input {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        font-size: 0.95rem;
+      }
+
+      input[type="submit"] {
+        margin-top: 10px;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        background: #0ea5e9;
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:active {
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Organizer Login</h1>
+      <form method="POST" action="/login">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+  </body>
+</html>

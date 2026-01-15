@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAL 4.0</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #f1f5f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #0f172a;
+      }
+
+      .main {
+        text-align: center;
+        width: 90%;
+        max-width: 480px;
+        background: #ffffff;
+        padding: 40px 30px;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .main img {
+        width: 65%;
+        max-width: 260px;
+        margin-bottom: 36px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .btn {
+        padding: 15px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .judge {
+        background: #0ea5e9;
+        color: #ffffff;
+      }
+
+      .coordinator {
+        background: #e5e7eb;
+        color: #111827;
+      }
+
+      .btn:active {
+        opacity: 0.85;
+      }
+
+      @media (min-width: 768px) {
+        .buttons {
+          flex-direction: row;
+        }
+
+        .btn {
+          flex: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <img
+        src="{{ url_for('static', filename='HAL_4.0-removebg-preview.png') }}"
+      />
+
+      <div class="buttons">
+        <a href="{{ url_for('judge_login') }}">
+          <button class="btn judge">Enter as Judge</button>
+        </a>
+
+        <a href="{{ url_for('coordinator_login') }}">
+          <button class="btn coordinator">Enter as Coordinator</button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

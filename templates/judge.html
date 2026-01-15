@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Evaluation</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #f1f5f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #111827;
+      }
+
+      .container {
+        width: 95%;
+        max-width: 520px;
+        background: #ffffff;
+        padding: 32px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .logo img {
+        width: 160px;
+        height: auto;
+      }
+
+      h2 {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #0f172a;
+      }
+
+      label {
+        display: block;
+        margin-top: 22px;
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        font-size: 0.95rem;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: #22d3ee;
+        margin-top: 6px;
+      }
+
+      .rating {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+
+      .value {
+        text-align: right;
+        font-size: 0.85rem;
+        margin-top: 4px;
+        color: #0ea5e9;
+        font-weight: 600;
+      }
+
+      button {
+        margin-top: 32px;
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      button:hover {
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="HAL_4.0-removebg-preview.png" />
+      </div>
+
+      <h2>Team Evaluation</h2>
+      <label for="team">Team Number</label>
+      <select id="team">
+        <option value="">Select team</option>
+        <option value="1">team1</option>
+        <option value="2">team2</option>
+        <option value="3">team3</option>
+        <option value="4">team4</option>
+      </select>
+
+      <label>Creativity</label>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        oninput="cVal.textContent=this.value"
+      />
+      <div class="rating"><span>1</span><span>5</span></div>
+      <div class="value">Score: <span id="cVal">3</span></div>
+
+      <label>Innovation</label>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        oninput="iVal.textContent=this.value"
+      />
+      <div class="rating"><span>1</span><span>5</span></div>
+      <div class="value">Score: <span id="iVal">3</span></div>
+
+      <label>Code Quality</label>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        oninput="qVal.textContent=this.value"
+      />
+      <div class="rating"><span>1</span><span>5</span></div>
+      <div class="value">Score: <span id="qVal">3</span></div>
+
+      <label>Problem Solving</label>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        oninput="pVal.textContent=this.value"
+      />
+      <div class="rating"><span>1</span><span>5</span></div>
+      <div class="value">Score: <span id="pVal">3</span></div>
+
+      <button>Submit Evaluation</button>
+    </div>
+  </body>
+</html>

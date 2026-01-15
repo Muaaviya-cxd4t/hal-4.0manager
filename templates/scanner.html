@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Scanner</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f1f5f9;
+        color: #0f172a;
+      }
+
+      .container {
+        width: 95%;
+        max-width: 480px;
+        text-align: center;
+        background: #ffffff;
+        padding: 28px;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .logo {
+        width: 140px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      h2 {
+        margin-top: 6px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #475569;
+      }
+
+      #reader {
+        width: 100%;
+        max-width: 380px;
+        margin: 24px auto;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .message {
+        margin-top: 18px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #16a34a;
+      }
+
+      .message.error {
+        color: #dc2626;
+      }
+
+      .logout-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 18px;
+        background: #0ea5e9;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .logout-button:active {
+        opacity: 0.85;
+      }
+
+      form {
+        margin-top: 12px;
+      }
+
+      button {
+        padding: 10px 18px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        background: #e5e7eb;
+        color: #111827;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button:active {
+        opacity: 0.85;
+      }
+
+      footer {
+        margin-top: 18px;
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="HAL_4.0-removebg-preview.png" alt="HAL Logo" class="logo" />
+
+      <h1>QR Code Scanner</h1>
+      <h2>HAL Hackathon Food Service</h2>
+
+      <div id="reader"></div>
+      <div id="message" class="message"></div>
+
+      <a href="/logout" class="logout-button">Logout</a>
+
+      <form action="{{ url_for('count_page') }}" method="get">
+        <button type="submit">See Food Count</button>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function onScanSuccess(decodedText, decodedResult) {
+          console.log(`Code scanned = ${decodedText}`);
+
+          fetch("/scan_qr", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `id=${decodedText}`,
+          })
+            .then((response) =>
+              response
+                .text()
+                .then((data) => ({ status: response.status, body: data }))
+            )
+            .then((result) => {
+              const messageElement = document.getElementById("message");
+              if (result.status === 200) {
+                messageElement.className = "message";
+                messageElement.textContent = result.body;
+              } else {
+                messageElement.className = "message error";
+                messageElement.textContent = result.body;
+              }
+            })
+            .catch((error) => {
+              const messageElement = document.getElementById("message");
+              messageElement.className = "message error";
+              messageElement.textContent =
+                "An error occurred. Please try again.";
+              console.error("Error:", error);
+            });
+        }
+
+        function onScanFailure(error) {
+          console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+          fps: 10,
+          qrbox: 250,
+        });
+
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+      });
+    </script>
+  </body>
+</html>
