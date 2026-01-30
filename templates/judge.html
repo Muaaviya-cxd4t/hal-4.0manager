@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,94 +12,73 @@
       }
 
       body {
+        margin: 0;
         min-height: 100vh;
-        background: #f1f5f9;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #111827;
+        background: linear-gradient(black, rgb(60, 0, 49));
       }
 
       .container {
         width: 95%;
         max-width: 520px;
-        background: #ffffff;
+        background: linear-gradient(white, rgb(157, 138, 153));
         padding: 32px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      }
-
-      .logo {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 4px solid #e5e7eb;
       }
 
       .logo img {
-        width: 160px;
-        height: auto;
+        width: 80px;
+        display: block;
+        margin: 0 auto 16px;
       }
 
       h2 {
         text-align: center;
-        font-weight: 600;
-        margin-bottom: 30px;
-        color: #0f172a;
+        margin-bottom: 24px;
       }
 
       label {
         display: block;
-        margin-top: 22px;
+        margin-top: 20px;
         margin-bottom: 6px;
-        font-size: 0.95rem;
         font-weight: 600;
-        color: #1f2937;
       }
 
-      select {
-        width: 100%;
-        padding: 12px;
-        border-radius: 10px;
-        border: 1px solid #cbd5e1;
-        font-size: 0.95rem;
-      }
-
+      select,
       input[type="range"] {
         width: 100%;
-        accent-color: #22d3ee;
-        margin-top: 6px;
       }
 
       .rating {
         display: flex;
         justify-content: space-between;
-        font-size: 0.8rem;
-        color: #64748b;
+        font-size: 12px;
       }
 
       .value {
         text-align: right;
-        font-size: 0.85rem;
-        margin-top: 4px;
-        color: #0ea5e9;
+        font-size: 13px;
         font-weight: 600;
+        margin-top: 4px;
       }
 
       button {
         margin-top: 32px;
         width: 100%;
-        padding: 14px;
-        font-size: 1rem;
-        font-weight: 600;
+        padding: 12px;
         border: none;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #22d3ee, #0ea5e9);
-        color: #ffffff;
+        border-radius: 6px;
+        background-color: #21001d;
+        color: white;
+        font-weight: 600;
         cursor: pointer;
       }
 
       button:hover {
-        opacity: 0.95;
+        background-color: #3b0033;
       }
     </style>
   </head>
@@ -107,60 +86,71 @@
   <body>
     <div class="container">
       <div class="logo">
-        <img src="HAL_4.0-removebg-preview.png" />
+        <img src="{{ url_for('static', filename='Logo.png') }}" />
       </div>
 
       <h2>Team Evaluation</h2>
-      <label for="team">Team Number</label>
-      <select id="team">
-        <option value="">Select team</option>
-        <option value="1">team1</option>
-        <option value="2">team2</option>
-        <option value="3">team3</option>
-        <option value="4">team4</option>
-      </select>
 
-      <label>Creativity</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        oninput="cVal.textContent=this.value"
-      />
-      <div class="rating"><span>1</span><span>5</span></div>
-      <div class="value">Score: <span id="cVal">3</span></div>
+      <form method="POST" action="{{ url_for('submit_judging') }}">
+        <label>Team</label>
+        <select name="team" required>
+          <option value="">Select team</option>
+          <option value="Team 1">Team 1</option>
+          <option value="Team 2">Team 2</option>
+          <option value="Team 3">Team 3</option>
+          <option value="Team 4">Team 4</option>
+        </select>
 
-      <label>Innovation</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        oninput="iVal.textContent=this.value"
-      />
-      <div class="rating"><span>1</span><span>5</span></div>
-      <div class="value">Score: <span id="iVal">3</span></div>
+        <label>Creativity</label>
+        <input
+          type="range"
+          name="creativity"
+          min="1"
+          max="5"
+          value="3"
+          oninput="cVal.textContent = this.value"
+        />
+        <div class="rating"><span>1</span><span>5</span></div>
+        <div class="value">Score: <span id="cVal">3</span></div>
 
-      <label>Code Quality</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        oninput="qVal.textContent=this.value"
-      />
-      <div class="rating"><span>1</span><span>5</span></div>
-      <div class="value">Score: <span id="qVal">3</span></div>
+        <label>Innovation</label>
+        <input
+          type="range"
+          name="innovation"
+          min="1"
+          max="5"
+          value="3"
+          oninput="iVal.textContent = this.value"
+        />
+        <div class="rating"><span>1</span><span>5</span></div>
+        <div class="value">Score: <span id="iVal">3</span></div>
 
-      <label>Problem Solving</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        oninput="pVal.textContent=this.value"
-      />
-      <div class="rating"><span>1</span><span>5</span></div>
-      <div class="value">Score: <span id="pVal">3</span></div>
+        <label>Code Quality</label>
+        <input
+          type="range"
+          name="code_quality"
+          min="1"
+          max="5"
+          value="3"
+          oninput="qVal.textContent = this.value"
+        />
+        <div class="rating"><span>1</span><span>5</span></div>
+        <div class="value">Score: <span id="qVal">3</span></div>
 
-      <button>Submit Evaluation</button>
+        <label>Problem Solving</label>
+        <input
+          type="range"
+          name="problem_solving"
+          min="1"
+          max="5"
+          value="3"
+          oninput="pVal.textContent = this.value"
+        />
+        <div class="rating"><span>1</span><span>5</span></div>
+        <div class="value">Score: <span id="pVal">3</span></div>
+
+        <button type="submit">Submit Evaluation</button>
+      </form>
     </div>
   </body>
 </html>
